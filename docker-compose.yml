@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  application:
+    build: .
+    command: ./run.sh
+    volumes:
+      - .:/app
+    environment:
+      - 'DEBUG=1'
+      #8*oeg0j8xo7yrwaar#&!&&&i-0dw64xar$qnbrt%dp_lut4=fz
+      - "SECRET_KEY=8*oeg0j8xo7yrwaar#&!&&&i-0dw64xardqnbrt%dp_lut4=fz"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
