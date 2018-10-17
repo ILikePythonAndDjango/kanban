@@ -1,18 +1,38 @@
 version: '3'
 
 services:
+
   db:
     image: postgres
+
   application:
     build: .
     command: ./run.sh
     volumes:
       - .:/app
     environment:
-      - 'DEBUG=1'
-      #8*oeg0j8xo7yrwaar#&!&&&i-0dw64xar$qnbrt%dp_lut4=fz
+      - 'DEBUG=0'
       - "SECRET_KEY=8*oeg0j8xo7yrwaar#&!&&&i-0dw64xardqnbrt%dp_lut4=fz"
     ports:
       - "8000:8000"
     depends_on:
       - db
+
+  frontend:
+    build:
+      dockerfile: Dockerfile-frontend
+      context: ./kanban_frontend
+    command: npm run dev
+    ports:
+      - "7000:9000"
+
+  proxy_server:
+    image: nginx
+    volumes:
+      - ./etc/nginx:/etc/nginx/conf.d
+      - ./media:/media
+    ports:
+      - "80:9000"
+    depends_on:
+      - application
+      - frontend

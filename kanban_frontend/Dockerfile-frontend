@@ -1,0 +1,10 @@
+FROM node:8-alpine
+
+RUN mkdir /app
+
+WORKDIR /app
+
+ADD ./kanban_frontend /app
+
+RUN rm -rf node_modules; \
+    npm install
