@@ -1,5 +1,5 @@
 <template>
-  <div class='showboardname'><div class='boardname'>{{ name }}</div></div>
+  <div class='showboardname' v-on:click="showKanbanBoardDetail(key)"><div class='boardname'>{{ name }}</div></div>
 </template>
 
 <script>

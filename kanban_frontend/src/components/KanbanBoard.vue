@@ -23,7 +23,7 @@ import vueKanban from "vue-kanban";
 Vue.use(vueKanban);
 
 export default {
-  name: "app",
+  name: "KanbanBoard",
   data() {
     return {
       stages: ["on-hold", "in-progress", "needs-review", "approved"],

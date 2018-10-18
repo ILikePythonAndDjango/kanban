@@ -5,11 +5,10 @@
       <show-board-name
           v-for="kanbanBoard of kanbanBoardsList"
           v-bind:key="kanbanBoard.id"
-          v-bind:name="kanbanBoard.title"
-          v-on:click="showKanbanBoard(kanbanBoard.id)"></show-board-name>
+          v-bind:name="kanbanBoard.title"></show-board-name>
     </div>
 
-    <div v-if="!showKanbanBoardsList" v-on:click="showKanbanBoardsList=true" class="buttonkanban">
+    <div v-if="_showKanbanBoardDetail" class="buttonkanban">
       <!-- This block is shown if you see kanban board -->
       <router-view/>
     </div>
