@@ -6,4 +6,4 @@ WORKDIR /app
 
 ADD ./kanban_frontend /app
 
-RUN npm install
+RUN rm -rf node_modules; npm install
