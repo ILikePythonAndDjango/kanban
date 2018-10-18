@@ -24,7 +24,7 @@ services:
       context: .
     command: npm run dev
     ports:
-      - "7000:9000"
+      - "9000:9000"
 
   proxy_server:
     image: nginx
