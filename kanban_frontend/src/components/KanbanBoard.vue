@@ -1,18 +1,14 @@
 <template>
-  <div class="kanban">
-    <div id="app">
-      <kanban-board :stages="stages" :blocks="blocks" @update-block="updateBlock">
-          <div v-for="block in blocks" :slot="block.id" :key="block.id">
-            <div>
-              <strong>id:</strong> {{ block.id }}
-            </div>
-            <div>
-              {{ block.title }}
-            </div>
-          </div>
-      </kanban-board>
+  <kanban-board :stages="stages" :blocks="blocks" @update-block="updateBlock">
+    <div v-for="block in blocks" :slot="block.id" :key="block.id">
+      <div>
+        <strong>id:</strong> {{ block.id }}
+      </div>
+      <div>
+        {{ block.title }}
+      </div>
     </div>
-  </div>
+  </kanban-board>
 </template>
 
 
@@ -24,58 +20,32 @@ Vue.use(vueKanban);
 
 export default {
   name: "KanbanBoard",
-  data() {
+  data: function() {
     return {
       stages: ["on-hold", "in-progress", "needs-review", "approved"],
-      blocks: blocks,
+      blocks: this.getBlocks(),
       listPrimitive: null
     };
   },
   methods: {
-    updateBlock(id, status) {
+    updateBlock: function(id, status) {
       let block = this.blocks[id];
       this.listPrimitive.update(id, { id, title: block.title, status });
+    },
+
+    getBlocks: function() {
+
+      this.$http.get('/app/api/cards/').then((response) => {
+        this.blocks = response.data
+      }).catch((response) => {
+        this.handleError(response)
+      })
+
+      return this.blocks
     }
   },
 };
 
-const blocks = [
-  {
-    id: 0,
-    status: "approved",
-    title: "Buy coffee machine"
-  },
-  {
-    id: 1,
-    status: "in-progress",
-    title: "Find better AirBnB options"
-  },
-  {
-    id: 2,
-    status: "on-hold",
-    title: "Approve Q3 budget"
-  },
-  {
-    id: 3,
-    status: "approved",
-    title: "Travel to Guaraguara"
-  },
-  {
-    id: 4,
-    status: "needs-review",
-    title: "Add Redux to the app"
-  },
-  {
-    id: 5,
-    status: "approved",
-    title: "Well, Sleep all day 👩‍🎤"
-  },
-  {
-    id: 6,
-    status: "in-progress",
-    title: "Find language exchange partner"
-  }
-];
 
 </script>
 

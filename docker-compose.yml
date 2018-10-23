@@ -23,6 +23,8 @@ services:
       dockerfile: ./kanban_frontend/Dockerfile-frontend
       context: .
     command: npm run dev
+    volumes:
+      - ./kanban_frontend/src:/app/src
     ports:
       - "9000:9000"
 

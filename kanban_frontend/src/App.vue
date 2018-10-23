@@ -1,33 +1,17 @@
 <template>
-<div class="wrapper">
-  <div id="app">
-    <div id="listofboards" v-if="kanbanBoardsList.length && showKanbanBoardsList">
-      <show-board-name
-          v-for="kanbanBoard of kanbanBoardsList"
-          v-bind:key="kanbanBoard.id"
-          v-bind:name="kanbanBoard.title"></show-board-name>
-    </div>
-
-    <div v-if="_showKanbanBoardDetail" class="buttonkanban">
-      <!-- This block is shown if you see kanban board -->
+  <div class="wrapper">
+    <div id="app">
       <router-view/>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 
 /* eslint-disable */
 
-import ShowBoardName from '@/components/ShowBoardName'
-
 export default {
   name: 'App',
-
-  components: {
-    ShowBoardName,
-  },
 
   data() {
     return {
@@ -36,10 +20,7 @@ export default {
       kanbanBoardDetail: null,
 
       // boolean flag that indicate status of list of kanban boards
-      showKanbanBoardsList: false,
-
-      // shouldn't set this vaibale
-      _showKanbanBoardDetail: !this.showKanbanBoardsList
+      showKanbanBoardsList: true,
     }
   },
 
@@ -49,26 +30,12 @@ export default {
       alert(error_response)
     },
 
-    getKanbanBoardsList: function() {
-
-      // function returns and sets list of kanban boards
-
-      this.$http.get('/app/api/kanbanboards/').then((response) => {
-        this.kanbanBoardsList = response.data
-      }).catch((response) => {
-        this.handleError(response)
-      })
-
-      return this.kanbanBoardsList
-    },
-
     getKanbanBoardDetail: function(id) {
 
       // function returns and sets details of kanban board that has this id
 
       this.$http.get(`/app/api/kanbanboards/${id}/`).then((response) => {
         this.kanbanBoard = response.data
-        this.handleError(this.kanbanBoard)
       }).catch((response) => {
         this.handleError(response)
       })
@@ -85,10 +52,6 @@ export default {
     }
   },
 
-  beforeMount(){
-    this.getKanbanBoardsList()
-    this.showKanbanBoardsList = true
- },
 }
 </script>
 
@@ -142,17 +105,4 @@ time, mark, audio, video {
   padding: 10px;
 }
 
-.showboardname {
-  border-radius: 5px;
-  height: 40px;
-  width: 340px;
-  background-color: rgb(126, 173, 163);
-	padding-top: 10px;
-	padding-left: 10px;
-}
-
-.boardname {
-  color: rgb(244, 206, 70);
-	margin: auto 10px;
-}
 </style>
