@@ -10,17 +10,17 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'Boards',
-      component: Boards
-    },
-    {
       path: '/boards/:id',
-      name: 'kanbanboard',
+      name: 'KanbanBoard',
       component: KanbanBoard,
       props: (route) => ({
         id: route.params.id,
       })
+    },
+    {
+      path: '/',
+      name: 'Boards',
+      component: Boards
     },
     {
       path: '/404',

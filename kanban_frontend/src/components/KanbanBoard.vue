@@ -13,10 +13,6 @@
 
 
 <script>
-import Vue from "vue";
-import vueKanban from "vue-kanban";
-
-Vue.use(vueKanban);
 
 export default {
   name: "KanbanBoard",
@@ -35,10 +31,10 @@ export default {
 
     getBlocks: function() {
 
-      this.$http.get('/app/api/cards/').then((response) => {
+      this.$http.get(`/app/api/cards/?board=${this.$route.id}`).then((response) => {
         this.blocks = response.data
       }).catch((response) => {
-        this.handleError(response)
+        console.log(response)
       })
 
       return this.blocks

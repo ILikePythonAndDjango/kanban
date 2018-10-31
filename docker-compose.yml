@@ -9,9 +9,9 @@ services:
     build: .
     command: ./run.sh
     volumes:
-      - .:/app
+      - ./kanban:/app/kanban
     environment:
-      - 'DEBUG=0'
+      - 'DEBUG=1'
       - "SECRET_KEY=8*oeg0j8xo7yrwaar#&!&&&i-0dw64xardqnbrt%dp_lut4=fz"
     ports:
       - "8000:8000"

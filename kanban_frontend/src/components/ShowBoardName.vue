@@ -1,6 +1,6 @@
 <template>
   <div class='showboardname'>
-    <router-link :to="{name: 'kanbanboard', params: {id: name.id } }">
+    <router-link :to="{name: 'KanbanBoard', params: {id: name.id } }">
       <div class='boardname'>{{ name.title }}</div>
     </router-link>
   </div>
